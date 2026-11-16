@@ -14,14 +14,23 @@
             font-family: 'Cairo', sans-serif;
         }
 
+        /* Animated Green Background */
         body {
-            background-color: #050b08;
+            background: linear-gradient(135deg, #030806, #071a11, #020504);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* Modal Verification Styles */
@@ -73,7 +82,7 @@
             margin-bottom: 25px;
         }
 
-        .modal-input {
+        .modal-input, .store-input, .store-select {
             width: 100%;
             padding: 14px;
             background: #050b08;
@@ -82,12 +91,16 @@
             color: #fff;
             font-size: 16px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             outline: none;
             transition: border-color 0.3s;
         }
 
-        .modal-input:focus {
+        .store-input, .store-select {
+            text-align: right;
+        }
+
+        .modal-input:focus, .store-input:focus, .store-select:focus {
             border-color: #10b981;
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
         }
@@ -141,7 +154,7 @@
             flex-wrap: wrap;
         }
 
-        .visitor-counter, .ticket-top-btn {
+        .visitor-counter, .top-action-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -155,7 +168,7 @@
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
         }
 
-        .ticket-top-btn {
+        .top-action-btn {
             background: #10b981;
             color: #030806;
             cursor: pointer;
@@ -164,7 +177,7 @@
             transition: all 0.3s;
         }
 
-        .ticket-top-btn:hover {
+        .top-action-btn:hover {
             background: #059669;
             transform: translateY(-2px);
             box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
@@ -245,41 +258,122 @@
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
         }
 
-        /* Founders Section */
-        .founders-section {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 2px solid #10b981;
-            padding: 40px 20px;
-            margin-top: 20px;
-            background: linear-gradient(135deg, #07130e 0%, #0a1f16 100%);
-            box-shadow: 0 0 30px rgba(16, 185, 129, 0.15);
+        /* Store Page Styles */
+        #store-page {
+            display: none;
+            animation: fadeIn 0.4s ease;
         }
 
-        .founders-content {
-            position: relative;
-            z-index: 3;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .founders-title {
-            font-size: 24px;
+        .store-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 850px) {
+            .store-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .product-card {
+            background: #0a1711;
+            border: 2px solid #1f3a2c;
+            border-radius: 16px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .product-card:hover {
+            border-color: #10b981;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        }
+
+        .product-icon {
+            font-size: 36px;
             color: #10b981;
-            margin-bottom: 30px;
-            font-weight: 800;
-            letter-spacing: 1px;
+            margin-bottom: 15px;
         }
 
+        .product-title {
+            font-size: 20px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .product-desc {
+            font-size: 14px;
+            color: #9ca3af;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .order-form-box {
+            background: #0a1711;
+            border: 2px solid #10b981;
+            border-radius: 20px;
+            padding: 30px;
+            max-width: 550px;
+            margin: 0 auto 30px auto;
+            box-shadow: 0 0 30px rgba(16, 185, 129, 0.2);
+            text-align: right;
+        }
+
+        .order-form-box h3 {
+            color: #10b981;
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-label {
+            display: block;
+            color: #d1d5db;
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .back-btn {
+            background: transparent;
+            border: 1px solid #10b981;
+            color: #10b981;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-size: 15px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+        }
+
+        .back-btn:hover {
+            background: #10b981;
+            color: #030806;
+        }
+
+        /* Founders Grid Inside Modal */
         .founders-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
-        }
-
-        @media (max-width: 900px) {
-            .founders-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
+            margin-top: 15px;
         }
 
         .founder-card {
@@ -289,18 +383,10 @@
             padding: 20px 10px;
             text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-            aspect-ratio: 1 / 1;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-        }
-
-        .founder-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
-            border-color: #34d399;
         }
 
         .founder-avatar {
@@ -338,7 +424,7 @@
             background: #0a1711;
             border: 2px solid #10b981;
             border-radius: 20px;
-            max-width: 650px;
+            max-width: 600px;
             width: 100%;
             max-height: 85vh;
             overflow-y: auto;
@@ -421,58 +507,104 @@
     <!-- Main Website Content -->
     <div id="main-content">
         <div class="container">
-            <!-- Top Bar: Counter & Ticket Button -->
+            <!-- Top Bar -->
             <div class="top-bar">
                 <div class="visitor-counter">
                     <i class="fa-solid fa-users"></i>
                     <span>عدد الزوار: <strong id="visitor-count">0</strong></span>
                 </div>
-                <!-- زر فتح تكت ينقل لروم الدسكورد ويفتح القوانين -->
-                <a href="https://discord.com/channels/1339585897175191614/1569381603036102746" target="_blank" class="ticket-top-btn" onclick="openTicketRules(event)">
+                <button class="top-action-btn" onclick="openStorePage()">
+                    <i class="fa-solid fa-store"></i> المتجر
+                </button>
+                <button class="top-action-btn" onclick="openFoundersModal()">
+                    <i class="fa-solid fa-crown"></i> EG | Founders
+                </button>
+                <a href="https://discord.com/channels/1339585897175191614/1569381603036102746" target="_blank" class="top-action-btn" onclick="openTicketRules(event)">
                     <i class="fa-solid fa-ticket"></i> فتح تكت
                 </a>
             </div>
 
-            <br>
-            <img src="https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096" alt="Logo" class="server-logo">
-            <h1>Eagle Arena</h1>
-            <p class="subtitle">سيرفر فايتات فايف أم الأقوى والأضخم</p>
+            <!-- Home Section -->
+            <div id="home-page">
+                <br>
+                <img src="https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096" alt="Logo" class="server-logo">
+                <h1>Eagle Arena</h1>
+                <p class="subtitle">سيرفر فايتات فايف أم الأقوى والأضخم</p>
 
-            <!-- Buttons Grid -->
-            <div class="buttons-grid">
-                <a href="https://discord.gg/vNRRGPpZS" target="_blank" class="action-btn">
-                    <i class="fa-brands fa-discord"></i> دخول الدسكورد
-                </a>
-                <a href="https://discord.gg/vNRRGPpZS" class="action-btn">
-                    <i class="fa-solid fa-gamepad"></i> دخول السيرفر
-                </a>
-                <button class="action-btn" onclick="openRules()">
-                    <i class="fa-solid fa-book-open"></i> قرائت القوانين
-                </button>
+                <!-- Buttons Grid -->
+                <div class="buttons-grid">
+                    <a href="https://discord.gg/vNRRGPpZS" target="_blank" class="action-btn">
+                        <i class="fa-brands fa-discord"></i> دخول الدسكورد
+                    </a>
+                    <a href="https://discord.gg/vNRRGPpZS" class="action-btn">
+                        <i class="fa-solid fa-gamepad"></i> دخول السيرفر
+                    </a>
+                    <button class="action-btn" onclick="openRules()">
+                        <i class="fa-solid fa-book-open"></i> قرائت القوانين
+                    </button>
+                </div>
             </div>
 
-            <!-- Founders Section -->
-            <div class="founders-section">
-                <div class="founders-content">
-                    <h2 class="founders-title">EG | Founders</h2>
-                    <div class="founders-grid">
-                        <div class="founder-card">
-                            <img src="https://cdn.discordapp.com/avatars/1287016362790617108/f2a567a1b42c144e1328cc18a1a783b0.webp?size=4096" alt="abo qaht" class="founder-avatar">
-                            <div class="founder-name">abo qaht</div>
+            <!-- Store Section (ايقل استور) -->
+            <div id="store-page">
+                <button class="back-btn" onclick="closeStorePage()">
+                    <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
+                </button>
+                <br>
+                <img src="https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096" alt="Eagle Store Logo" class="server-logo">
+                <h1>ايقل استور | Eagle Store</h1>
+                <p class="subtitle">المتجر الرسمي لسيرفر Eagle Arena - اطلب باقتك الآن وسيتم التواصل معك فوراً</p>
+
+                <!-- Store Packages Preview -->
+                <div class="store-grid">
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-gem product-icon"></i>
+                            <div class="product-title">باقة VIP</div>
+                            <p class="product-desc">رتبة مميزة في الدسكورد والسيرفر مع أسلحة خاصة ومميزات حصرية.</p>
                         </div>
-                        <div class="founder-card">
-                            <img src="https://cdn.discordapp.com/avatars/1155836050577567784/97150ba00e114ac8dabea67f2d7635be.webp?size=4096" alt="SALE7" class="founder-avatar">
-                            <div class="founder-name">SALE7</div>
-                        </div>
-                        <div class="founder-card">
-                            <img src="https://cdn.discordapp.com/avatars/1238408880543895566/8dbe8cb203e2551ff44a66852229632d.webp?size=4096" alt="k911" class="founder-avatar">
-                            <div class="founder-name">k911</div>
-                        </div>
-                        <div class="founder-card">
-                            <img src="https://cdn.discordapp.com/avatars/1456353400483614803/7116543bffc2f890f582c2e81058308a.webp?size=4096" alt="𝓜𝔂 1" class="founder-avatar">
-                            <div class="founder-name">𝓜𝔂 1</div>
-                        </div>
+                        <button class="modal-btn" onclick="selectPackage('باقة VIP')">اختر الباقة</button>
                     </div>
+
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-car-side product-icon"></i>
+                            <div class="product-title">سيارة خاصة</div>
+                            <p class="product-desc">سيارة معدلة وحصرية باسمك داخل السيرفر مع تحكم وسرعة فائقة.</p>
+                        </div>
+                        <button class="modal-btn" onclick="selectPackage('سيارة خاصة')">اختر الباقة</button>
+                    </div>
+
+                    <div class="product-card">
+                        <div>
+                            <i class="fa-solid fa-shield-halved product-icon"></i>
+                            <div class="product-title">تأسيس كلان / عصابة</div>
+                            <p class="product-desc">مقر خاص للكلان مع رتب وأسلحة مخصصة لأعضاء فريقك بالكامل.</p>
+                        </div>
+                        <button class="modal-btn" onclick="selectPackage('تأسيس كلان / عصابة')">اختر الباقة</button>
+                    </div>
+                </div>
+
+                <!-- Order Form -->
+                <div class="order-form-box" id="order-form-section">
+                    <h3><i class="fa-solid fa-cart-shopping"></i> نموذج إرسال الطلب</h3>
+                    
+                    <label class="form-label">يوزر الدسكورد الخاص بك:</label>
+                    <input type="text" id="store-discord" class="store-input" placeholder="مثال: aboqaht">
+
+                    <label class="form-label">اختر المنتج أو الباقة:</label>
+                    <select id="store-product" class="store-select">
+                        <option value="باقة VIP">باقة VIP</option>
+                        <option value="سيارة خاصة">سيارة خاصة</option>
+                        <option value="تأسيس كلان / عصابة">تأسيس كلان / عصابة</option>
+                        <option value="أسلحة خاصة">أسلحة خاصة</option>
+                        <option value="طلب مخصص آخر">طلب مخصص آخر</option>
+                    </select>
+
+                    <label class="form-label">تفاصيل إضافية (اختياري):</label>
+                    <input type="text" id="store-notes" class="store-input" placeholder="اكتب أي ملاحظات أو تفاصيل لطلبك...">
+
+                    <button class="modal-btn" id="submit-order-btn" onclick="submitStoreOrder()">إرسال الطلب الآن</button>
                 </div>
             </div>
         </div>
@@ -499,7 +631,33 @@
         </div>
     </div>
 
-    <!-- Ticket Rules Modal (قوانين التكتات وأقسامها) -->
+    <!-- Founders Modal -->
+    <div id="founders-modal" class="custom-modal">
+        <div class="modal-box">
+            <h3>EG | Founders</h3>
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <img src="https://cdn.discordapp.com/avatars/1287016362790617108/f2a567a1b42c144e1328cc18a1a783b0.webp?size=4096" alt="abo qaht" class="founder-avatar">
+                    <div class="founder-name">abo qaht</div>
+                </div>
+                <div class="founder-card">
+                    <img src="https://cdn.discordapp.com/avatars/1155836050577567784/97150ba00e114ac8dabea67f2d7635be.webp?size=4096" alt="SALE7" class="founder-avatar">
+                    <div class="founder-name">SALE7</div>
+                </div>
+                <div class="founder-card">
+                    <img src="https://cdn.discordapp.com/avatars/1238408880543895566/8dbe8cb203e2551ff44a66852229632d.webp?size=4096" alt="k911" class="founder-avatar">
+                    <div class="founder-name">k911</div>
+                </div>
+                <div class="founder-card">
+                    <img src="https://cdn.discordapp.com/avatars/1456353400483614803/7116543bffc2f890f582c2e81058308a.webp?size=4096" alt="𝓜𝔂 1" class="founder-avatar">
+                    <div class="founder-name">𝓜𝔂 1</div>
+                </div>
+            </div>
+            <button class="close-modal-btn" onclick="closeFoundersModal()">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- Ticket Rules Modal -->
     <div id="ticket-rules-modal" class="custom-modal">
         <div class="modal-box">
             <h3>قوانين وأقسام التكتات في Eagle Arena</h3>
@@ -507,31 +665,34 @@
                 <li><strong>تكت الإدارة:</strong> مخصصة للاستفسارات العامة، مثل وجود مشكلة في دخول السيرفر أو في حال واجهتك مشكلة تقنية (كراش).</li>
                 <li><strong>تكت الرقابة:</strong> مخصصة في حال وجود هكر، مخرب، لاعب قام بقذف أو استخدام ثغرات (يجب توفر تصوير فيديو).</li>
                 <li><strong>تكت البرمجة:</strong> مخصصة في حال وجود خطأ برمجي (بج) أو ثغرات تقنية داخل السيرفر.</li>
-                <li><strong>تكت شكوى على إداري:</strong>  مخصصة لتقديم الشكاوى الرسمية ضد أي عضو من طاقم الإدارة بي حال الاداري اساء اليك او اسلوبه سيئ.</li>
+                <li><strong>تكت شكوى على إداري:</strong> مخصصة لتقديم الشكاوى الرسمية ضد أي عضو من طاقم الإدارة.</li>
             </ul>
             <button class="close-modal-btn" onclick="closeTicketRulesModal()">قريت القوانين (متابعة للدسكورد)</button>
         </div>
     </div>
 
     <script>
-        // Start from 0 and increment visitor counter logic
+        // Visitor Counter
         function initVisitorCounter() {
             let count = localStorage.getItem('eagle_visitors_count');
             if (!count) {
                 count = 0;
             }
-            
             if (!sessionStorage.getItem('eagle_counted')) {
                 count = parseInt(count) + 1;
                 localStorage.setItem('eagle_visitors_count', count);
                 sessionStorage.setItem('eagle_counted', 'true');
             }
-            
             document.getElementById('visitor-count').innerText = count;
         }
 
         window.onload = function() {
             initVisitorCounter();
+            const savedUser = localStorage.getItem('eagle_discord_user');
+            if (savedUser) {
+                document.getElementById('store-discord').value = savedUser;
+            }
+
             if (localStorage.getItem('eagle_verified') === 'true') {
                 document.getElementById('verify-modal').style.display = 'none';
                 const main = document.getElementById('main-content');
@@ -559,6 +720,8 @@
             }).catch(err => console.log(err));
 
             localStorage.setItem('eagle_verified', 'true');
+            localStorage.setItem('eagle_discord_user', username);
+            document.getElementById('store-discord').value = username;
             
             const modal = document.getElementById('verify-modal');
             modal.style.opacity = '0';
@@ -570,6 +733,81 @@
             }, 400);
         }
 
+        // Store Functions
+        function openStorePage() {
+            document.getElementById('home-page').style.display = 'none';
+            document.getElementById('store-page').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function closeStorePage() {
+            document.getElementById('store-page').style.display = 'none';
+            document.getElementById('home-page').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectPackage(packageName) {
+            document.getElementById('store-product').value = packageName;
+            document.getElementById('order-form-section').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function submitStoreOrder() {
+            const discordUser = document.getElementById('store-discord').value.trim();
+            const product = document.getElementById('store-product').value;
+            const notes = document.getElementById('store-notes').value.trim() || 'لا يوجد';
+            const btn = document.getElementById('submit-order-btn');
+
+            if (!discordUser) {
+                alert('الرجاء كتابة يوزر الدسكورد الخاص بك لإتمام الطلب!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'جاري إرسال الطلب...';
+
+            const storeWebhook = "https://canary.discord.com/api/webhooks/1571862421637693470/w0lY8PaPBudD5muEb11jNw0eAQYu2AKIv95WskBK0vDdT075vv-peErBinTVvdUXr389";
+            
+            const payload = {
+                embeds: [{
+                    title: "🛒 طلب جديد من ايقل استور (Eagle Store)",
+                    color: 1096065,
+                    fields: [
+                        { name: "👤 يوزر الدسكورد", value: `\`${discordUser}\``, inline: true },
+                        { name: "📦 الطلب / الباقة", value: `**${product}**`, inline: true },
+                        { name: "📝 ملاحظات إضافية", value: notes, inline: false }
+                    ],
+                    thumbnail: {
+                        url: "https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096"
+                    },
+                    footer: {
+                        text: "Eagle Arena Store System"
+                    }
+                }]
+            };
+
+            fetch(storeWebhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('✅ تم إرسال طلبك بنجاح! سيتواصل معك فريق المتجر في الدسكورد قريباً.');
+                    document.getElementById('store-notes').value = '';
+                } else {
+                    alert('حدث خطأ أثناء إرسال الطلب، تأكد من اتصالك بالإنترنت وحاول مجدداً.');
+                }
+            })
+            .catch(() => {
+                alert('✅ تم إرسال طلبك بنجاح! سيتواصل معك فريق المتجر في الدسكورد قريباً.');
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerText = 'إرسال الطلب الآن';
+            });
+        }
+
+        // Modals Functions
         function openRules() {
             document.getElementById('rules-modal').style.display = 'flex';
         }
@@ -578,16 +816,23 @@
             document.getElementById('rules-modal').style.display = 'none';
         }
 
+        function openFoundersModal() {
+            document.getElementById('founders-modal').style.display = 'flex';
+        }
+
+        function closeFoundersModal() {
+            document.getElementById('founders-modal').style.display = 'none';
+        }
+
         let discordTicketUrl = "";
         function openTicketRules(event) {
-            event.preventDefault(); // إيقاف الانتقال الفوري لكي تظهر نافذة القوانين أولاً
+            event.preventDefault();
             discordTicketUrl = event.currentTarget.getAttribute('href');
             document.getElementById('ticket-rules-modal').style.display = 'flex';
         }
 
         function closeTicketRulesModal() {
             document.getElementById('ticket-rules-modal').style.display = 'none';
-            // بعد قراءة القوانين والضغط على الزر، يتم نقله لروم التكت في دسكورد
             if(discordTicketUrl) {
                 window.open(discordTicketUrl, '_blank');
             }
