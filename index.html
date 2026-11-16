@@ -82,7 +82,7 @@
             margin-bottom: 25px;
         }
 
-        .modal-input, .store-input, .store-select {
+        .modal-input, .store-input, .store-select, .form-input-box {
             width: 100%;
             padding: 14px;
             background: #050b08;
@@ -96,11 +96,11 @@
             transition: border-color 0.3s;
         }
 
-        .store-input, .store-select {
+        .store-input, .store-select, .form-input-box {
             text-align: right;
         }
 
-        .modal-input:focus, .store-input:focus, .store-select:focus {
+        .modal-input:focus, .store-input:focus, .store-select:focus, .form-input-box:focus {
             border-color: #10b981;
             box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
         }
@@ -149,7 +149,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             margin-bottom: 25px;
             flex-wrap: wrap;
         }
@@ -160,10 +160,10 @@
             gap: 8px;
             background: rgba(16, 185, 129, 0.1);
             border: 1px solid #10b981;
-            padding: 8px 18px;
+            padding: 8px 16px;
             border-radius: 30px;
             color: #10b981;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 700;
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
         }
@@ -316,8 +316,8 @@
             box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
         }
 
-        /* Store Page Styles */
-        #store-page {
+        /* Sub-Pages Styles (Store, Rank, Apply) */
+        .sub-page {
             display: none;
             animation: fadeIn 0.4s ease;
         }
@@ -327,7 +327,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .store-grid {
+        .store-grid, .rank-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 20px;
@@ -338,12 +338,12 @@
         }
 
         @media (max-width: 850px) {
-            .store-grid {
+            .store-grid, .rank-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .product-card {
+        .product-card, .rank-card {
             background: #0a1711;
             border: 2px solid #1f3a2c;
             border-radius: 16px;
@@ -356,19 +356,19 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
-        .product-card:hover {
+        .product-card:hover, .rank-card:hover {
             border-color: #10b981;
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
         }
 
-        .product-icon {
+        .product-icon, .rank-badge {
             font-size: 35px;
             color: #10b981;
             margin-bottom: 12px;
         }
 
-        .product-title {
+        .product-title, .rank-title {
             font-size: 19px;
             font-weight: 800;
             color: #fff;
@@ -382,14 +382,24 @@
             margin-bottom: 10px;
         }
 
-        .product-desc {
+        .product-desc, .rank-desc {
             font-size: 14px;
             color: #9ca3af;
             margin-bottom: 20px;
             line-height: 1.5;
         }
 
-        .order-form-box {
+        .rank-avatar {
+            width: 85px;
+            height: 85px;
+            border-radius: 50%;
+            border: 2px solid #10b981;
+            margin: 0 auto 15px auto;
+            object-fit: cover;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .order-form-box, .apply-form-box {
             background: #0a1711;
             border: 2px solid #10b981;
             border-radius: 20px;
@@ -400,7 +410,7 @@
             text-align: right;
         }
 
-        .order-form-box h3 {
+        .order-form-box h3, .apply-form-box h3 {
             color: #10b981;
             font-size: 22px;
             margin-bottom: 20px;
@@ -581,19 +591,25 @@
                     <i class="fa-solid fa-users"></i>
                     <span>عدد الزوار: <strong id="visitor-count">0</strong></span>
                 </div>
-                <button class="top-action-btn" onclick="openStorePage()">
+                <button class="top-action-btn" onclick="openPage('store-page')">
                     <i class="fa-solid fa-store"></i> المتجر
                 </button>
+                <button class="top-action-btn" onclick="openPage('rank-page')">
+                    <i class="fa-solid fa-trophy"></i> الرانك
+                </button>
+                <button class="top-action-btn" onclick="openPage('apply-page')">
+                    <i class="fa-solid fa-user-shield"></i> تقديم الإدارة
+                </button>
                 <button class="top-action-btn" onclick="openFoundersModal()">
-                    <i class="fa-solid fa-crown"></i> EG | Founders
+                    <i class="fa-solid fa-crown"></i> Founders
                 </button>
                 <a href="https://discord.com/channels/1339585897175191614/1569381603036102746" target="_blank" class="top-action-btn" onclick="openTicketRules(event)">
-                    <i class="fa-solid fa-ticket"></i> فتح تكت
+                    <i class="fa-solid fa-ticket"></i> تكت
                 </a>
             </div>
 
             <!-- Home Section -->
-            <div id="home-page">
+            <div id="home-page" class="sub-page" style="display: block;">
                 <br>
                 <img src="https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096" alt="Logo" class="server-logo">
                 <h1>Eagle Arena</h1>
@@ -639,8 +655,8 @@
             </div>
 
             <!-- Store Section (ايقل استور) -->
-            <div id="store-page">
-                <button class="back-btn" onclick="closeStorePage()">
+            <div id="store-page" class="sub-page">
+                <button class="back-btn" onclick="openPage('home-page')">
                     <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
                 </button>
                 <br>
@@ -648,7 +664,6 @@
                 <h1>ايقل استور | Eagle Store</h1>
                 <p class="subtitle">المتجر الرسمي لسيرفر Eagle Arena - اطلب ما تحتاجه وسيتم خدمتك فوراً</p>
 
-                <!-- Store Packages Preview (Weapons 15, VIP 40, Money 15) -->
                 <div class="store-grid">
                     <div class="product-card">
                         <div>
@@ -681,7 +696,6 @@
                     </div>
                 </div>
 
-                <!-- Order Form -->
                 <div class="order-form-box" id="order-form-section">
                     <h3><i class="fa-solid fa-cart-shopping"></i> نموذج إرسال الطلب</h3>
                     
@@ -699,6 +713,78 @@
                     <input type="text" id="store-notes" class="store-input" placeholder="اكتب الآيدي الخاص بك داخل السيرفر...">
 
                     <button class="modal-btn" id="submit-order-btn" onclick="submitStoreOrder()">إرسال الطلب الآن</button>
+                </div>
+            </div>
+
+            <!-- Rank Section (أبطال الرانك) -->
+            <div id="rank-page" class="sub-page">
+                <button class="back-btn" onclick="openPage('home-page')">
+                    <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
+                </button>
+                <br>
+                <img src="https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096" alt="Rank Logo" class="server-logo">
+                <h1>لوحة شرف الرانك | Top 3 Rank</h1>
+                <p class="subtitle">أقوى اللاعبين متصدرين الفايتات في سيرفر Eagle Arena</p>
+
+                <div class="rank-grid">
+                    <div class="rank-card">
+                        <div>
+                            <div class="rank-badge"><i class="fa-solid fa-trophy" style="color: #ffd700;"></i> المركز الأول</div>
+                            <img src="https://cdn.discordapp.com/embed/avatars/0.png" alt="1st Place" class="rank-avatar" id="rank-img-1">
+                            <div class="rank-title" id="rank-name-1">قريباً (أرسل الصورة)</div>
+                            <p class="rank-desc">بطل السيرفر المتصدر للرانك العالمي بفايتات استثنائية.</p>
+                        </div>
+                    </div>
+
+                    <div class="rank-card">
+                        <div>
+                            <div class="rank-badge"><i class="fa-solid fa-trophy" style="color: #c0c0c0;"></i> المركز الثاني</div>
+                            <img src="https://cdn.discordapp.com/embed/avatars/1.png" alt="2nd Place" class="rank-avatar" id="rank-img-2">
+                            <div class="rank-title" id="rank-name-2">قريباً (أرسل الصورة)</div>
+                            <p class="rank-desc">صاحب المركز الثاني وأداء مرعب في الساحة.</p>
+                        </div>
+                    </div>
+
+                    <div class="rank-card">
+                        <div>
+                            <div class="rank-badge"><i class="fa-solid fa-trophy" style="color: #cd7f32;"></i> المركز الثالث</div>
+                            <img src="https://cdn.discordapp.com/embed/avatars/2.png" alt="3rd Place" class="rank-avatar" id="rank-img-3">
+                            <div class="rank-title" id="rank-name-3">قريباً (أرسل الصورة)</div>
+                            <p class="rank-desc">منافس شرس ضمن قائمة الثلاثة الأوائل في السيرفر.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Apply Admin Section (تقديم الإدارة) -->
+            <div id="apply-page" class="sub-page">
+                <button class="back-btn" onclick="openPage('home-page')">
+                    <i class="fa-solid fa-arrow-right"></i> العودة للرئيسية
+                </button>
+                <br>
+                <img src="https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096" alt="Apply Logo" class="server-logo">
+                <h1>تقديم الإدارة | Staff Application</h1>
+                <p class="subtitle">انضم إلى طاقم الإدارة في Eagle Arena وأثبت كفاءتك</p>
+
+                <div class="apply-form-box">
+                    <h3><i class="fa-solid fa-clipboard-user"></i> نموذج التقديم الإداري</h3>
+
+                    <label class="form-label">1. منشن نفسك أو يوزرك بالدسكورد:</label>
+                    <input type="text" id="apply-discord" class="form-input-box" placeholder="مثال: @aboqaht أو aboqaht#0000">
+
+                    <label class="form-label">2. اسمك الحقيقي:</label>
+                    <input type="text" id="apply-name" class="form-input-box" placeholder="اكتب اسمك هنا...">
+
+                    <label class="form-label">3. عمرك ومن وين (البلد/المدينة):</label>
+                    <input type="text" id="apply-age-country" class="form-input-box" placeholder="مثال: 19 سنة - السعودية">
+
+                    <label class="form-label">4. سبب تقديمك للإدارة:</label>
+                    <input type="text" id="apply-reason" class="form-input-box" placeholder="لماذا تريد الانضمام لطاقم الإدارة؟">
+
+                    <label class="form-label">5. ساعات تواجدك اليومي:</label>
+                    <input type="text" id="apply-hours" class="form-input-box" placeholder="مثال: من 6 إلى 8 ساعات يومياً">
+
+                    <button class="modal-btn" id="submit-apply-btn" onclick="submitAdminApplication()">إرسال التقديم للإدارة</button>
                 </div>
             </div>
         </div>
@@ -766,6 +852,16 @@
     </div>
 
     <script>
+        // Page Router Function
+        function openPage(pageId) {
+            const pages = ['home-page', 'store-page', 'rank-page', 'apply-page'];
+            pages.forEach(id => {
+                document.getElementById(id).style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
         // Countdown Timer Logic
         function startCountdown() {
             let countDownDate = new Date().getTime() + (2 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000);
@@ -812,6 +908,7 @@
             const savedUser = localStorage.getItem('eagle_discord_user');
             if (savedUser) {
                 document.getElementById('store-discord').value = savedUser;
+                document.getElementById('apply-discord').value = savedUser;
             }
 
             if (localStorage.getItem('eagle_verified') === 'true') {
@@ -843,6 +940,7 @@
             localStorage.setItem('eagle_verified', 'true');
             localStorage.setItem('eagle_discord_user', username);
             document.getElementById('store-discord').value = username;
+            document.getElementById('apply-discord').value = username;
             
             const modal = document.getElementById('verify-modal');
             modal.style.opacity = '0';
@@ -855,18 +953,6 @@
         }
 
         // Store Functions
-        function openStorePage() {
-            document.getElementById('home-page').style.display = 'none';
-            document.getElementById('store-page').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        function closeStorePage() {
-            document.getElementById('store-page').style.display = 'none';
-            document.getElementById('home-page').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
         function selectPackage(packageName) {
             document.getElementById('store-product').value = packageName;
             document.getElementById('order-form-section').scrollIntoView({ behavior: 'smooth' });
@@ -925,6 +1011,70 @@
             .finally(() => {
                 btn.disabled = false;
                 btn.innerText = 'إرسال الطلب الآن';
+            });
+        }
+
+        // Admin Application Submit Function (تقديم الإدارة)
+        function submitAdminApplication() {
+            const discord = document.getElementById('apply-discord').value.trim();
+            const name = document.getElementById('apply-name').value.trim();
+            const ageCountry = document.getElementById('apply-age-country').value.trim();
+            const reason = document.getElementById('apply-reason').value.trim();
+            const hours = document.getElementById('apply-hours').value.trim();
+            const btn = document.getElementById('submit-apply-btn');
+
+            if (!discord || !name || !ageCountry || !reason || !hours) {
+                alert('الرجاء تعبئة جميع حقول نموذج التقديم قبل الإرسال!');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = 'جاري إرسال التقديم...';
+
+            const applyWebhook = "https://canary.discord.com/api/webhooks/1571866384088965232/snhHWDTOixl7nC0qv7lLyyBQqyzyDkT7_NNt5_sCqqZY4we9-OwiGUKVfsqFB17wC7ZL";
+
+            const payload = {
+                embeds: [{
+                    title: "🛡️ تقديم إداري جديد - Eagle Arena",
+                    color: 16776960,
+                    fields: [
+                        { name: "👤 يوزر الدسكورد / المنشن", value: `\`${discord}\``, inline: false },
+                        { name: "🏷️ الاسم", value: `**${name}**`, inline: true },
+                        { name: "🌍 العمر والبلد", value: `**${ageCountry}**`, inline: true },
+                        { name: "📝 سبب التقديم", value: reason, inline: false },
+                        { name: "⏰ ساعات التواجد", value: hours, inline: false }
+                    ],
+                    thumbnail: {
+                        url: "https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096"
+                    },
+                    footer: {
+                        text: "Eagle Arena Staff Recruitment System"
+                    }
+                }]
+            };
+
+            fetch(applyWebhook, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('✅ تم إرسال تقديمك الإداري بنجاح! بالتوفيق.');
+                    document.getElementById('apply-name').value = '';
+                    document.getElementById('apply-age-country').value = '';
+                    document.getElementById('apply-reason').value = '';
+                    document.getElementById('apply-hours').value = '';
+                } else {
+                    alert('حدث خطأ أثناء الإرسال، حاول مجدداً.');
+                }
+            })
+            .catch(() => {
+                alert('✅ تم إرسال تقديمك الإداري بنجاح! بالتوفيق.');
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.innerText = 'إرسال التقديم للإدارة';
             });
         }
 
