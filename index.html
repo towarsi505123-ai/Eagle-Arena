@@ -12,6 +12,7 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Cairo', sans-serif;
+            cursor: default;
         }
 
         /* Animated Green Background */
@@ -35,6 +36,36 @@
             height: 100%;
             z-index: 0;
             pointer-events: none;
+        }
+
+        /* Custom Glowing Mouse Follower Cursor */
+        .mouse-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 25px;
+            height: 25px;
+            border: 2px solid #10b981;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            z-index: 99999;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
+        }
+
+        .mouse-dot {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 6px;
+            background-color: #10b981;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 100000;
+            box-shadow: 0 0 10px #10b981;
         }
 
         /* Modal Verification Styles */
@@ -98,6 +129,7 @@
             margin-bottom: 15px;
             outline: none;
             transition: border-color 0.3s;
+            cursor: text;
         }
 
         .store-input, .store-select, .form-input-box {
@@ -173,19 +205,18 @@
             font-size: 14px;
             font-weight: 700;
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+            cursor: pointer;
         }
 
         .top-action-btn {
             background: #10b981;
             color: #030806;
-            cursor: pointer;
             border: none;
             text-decoration: none;
             transition: all 0.3s;
         }
 
         .lang-toggle-btn {
-            cursor: pointer;
             transition: all 0.3s;
         }
 
@@ -831,6 +862,10 @@
 </head>
 <body>
 
+    <!-- Custom Mouse Follower Elements -->
+    <div class="mouse-cursor" id="cursor"></div>
+    <div class="mouse-dot" id="cursor-dot"></div>
+
     <!-- Interactive Mouse Background Canvas -->
     <canvas id="bg-canvas"></canvas>
 
@@ -1265,7 +1300,30 @@
     </div>
 
     <script>
-        // ================= 1. LANGUAGE TOGGLE SYSTEM (AR / EN) =================
+        // ================= 1. MOUSE FOLLOWER EFFECT =================
+        const cursor = document.getElementById('cursor');
+        const cursorDot = document.getElementById('cursor-dot');
+
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px';
+            cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            cursorX += (mouseX - cursorX) * 0.15;
+            cursorY += (mouseY - cursorY) * 0.15;
+            cursor.style.left = cursorX + 'px';
+            cursor.style.top = cursorY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        // ================= 2. LANGUAGE TOGGLE SYSTEM (AR / EN) =================
         let currentLang = 'ar';
         const translations = {
             ar: {
@@ -1464,7 +1522,7 @@
             renderBanList();
         }
 
-        // ================= 2. LIVE SERVER STATUS & COPY IP =================
+        // ================= 3. LIVE SERVER STATUS & COPY IP =================
         function copyServerIP() {
             const connectCmd = "connect play.eaglearena.gg";
             navigator.clipboard.writeText(connectCmd).then(() => {
@@ -1476,13 +1534,11 @@
             });
         }
 
-        // ================= 3. BAN LIST DATA & RENDER (أنت تضيف منها) =================
+        // ================= 4. BAN LIST DATA & RENDER =================
         const banListData = [
-            { user: "cheater_99", id: "ID: 412", reason: "استخدام برامج خارجية (هكس)" },
-            { user: "toxic_player", id: "ID: 885", reason: "شتم وسب الإدارة واللاعبين" },
-            { user: "exploit_king", id: "ID: 104", reason: "استغلال ثغرات البقوت والفايت" }
-            // تقدر تضيف أي شخص جديد هنا بنفس الطريقة:
-            // { user: "يوزر_الشخص", id: "ID: رقمة", reason: "السبب هنا" },
+            { user: "قريبن", id: "ID: 1", reason: "قريبن" },
+            { user: "قريبن", id: "ID: 1", reason: "قريبن" },
+            { user: "قريبن", id: "ID: 1", reason: "قريبن" }
         ];
 
         function renderBanList(filter = "") {
@@ -1516,7 +1572,7 @@
             renderBanList(query);
         }
 
-        // ================= 4. PLAYER MEDIA & CLIPS GALLERY =================
+        // ================= 5. PLAYER MEDIA & CLIPS GALLERY =================
         function extractYouTubeID(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
@@ -1575,7 +1631,7 @@
             alert(currentLang === 'ar' ? 'تم نشر لقطتك بنجاح في المعرض!' : 'Your clip has been published to the gallery!');
         }
 
-        // ================= 5. TESTIMONIALS / VOUCHES SYSTEM =================
+        // ================= 6. TESTIMONIALS / VOUCHES SYSTEM =================
         const defaultVouches = [
             {
                 user: "SALE7",
@@ -1631,7 +1687,7 @@
             alert(currentLang === 'ar' ? 'شكراً لك! تم إضافة تقييمك بنجاح.' : 'Thank you! Your vouch has been added.');
         }
 
-        // ================= 6. NAVIGATION, VERIFICATION & FORMS =================
+        // ================= 7. NAVIGATION, VERIFICATION & FORMS =================
         function verifyAndEnter() {
             const username = document.getElementById('discord-username').value.trim();
             if (!username) {
