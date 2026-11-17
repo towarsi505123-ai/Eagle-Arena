@@ -49,7 +49,7 @@
             border-radius: 50%;
             pointer-events: none;
             transform: translate(-50%, -50%);
-            transition: width 0.2s, height 0.2s, background-color 0.2s;
+            transition: width 0.2s, height 0.2s;
             z-index: 99999;
             box-shadow: 0 0 15px rgba(16, 185, 129, 0.6);
         }
@@ -182,54 +182,91 @@
             z-index: 2;
         }
 
-        /* Top Bar */
-        .top-bar {
+        /* ================= REFINED TOP NAVIGATION BAR ================= */
+        .top-nav-bar {
+            background: rgba(10, 23, 17, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid #1f3a2c;
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-bottom: 35px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 10px;
-            margin-bottom: 25px;
             flex-wrap: wrap;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
         }
 
-        .visitor-counter, .top-action-btn, .lang-toggle-btn {
+        .nav-btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: rgba(16, 185, 129, 0.12);
-            backdrop-filter: blur(8px);
-            border: 1px solid #10b981;
-            padding: 8px 15px;
-            border-radius: 30px;
-            color: #10b981;
+            background: rgba(16, 185, 129, 0.08);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 9px 16px;
+            border-radius: 12px;
+            color: #d1d5db;
             font-size: 14px;
             font-weight: 700;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
             cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
-        .top-action-btn {
+        .nav-btn i {
+            color: #10b981;
+            font-size: 15px;
+        }
+
+        .nav-btn:hover {
             background: #10b981;
             color: #030806;
-            border: none;
-            text-decoration: none;
-            transition: all 0.3s;
-        }
-
-        .lang-toggle-btn {
-            transition: all 0.3s;
-        }
-
-        .lang-toggle-btn:hover {
-            background: rgba(16, 185, 129, 0.25);
+            border-color: #10b981;
             transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
         }
 
-        .top-action-btn:hover {
-            background: #059669;
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        .nav-btn:hover i {
+            color: #030806;
         }
+
+        .nav-btn.special-ticket {
+            background: rgba(59, 130, 246, 0.12);
+            border-color: rgba(59, 130, 246, 0.4);
+            color: #60a5fa;
+        }
+        .nav-btn.special-ticket i {
+            color: #60a5fa;
+        }
+        .nav-btn.special-ticket:hover {
+            background: #3b82f6;
+            color: #fff;
+            border-color: #3b82f6;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+        .nav-btn.special-ticket:hover i {
+            color: #fff;
+        }
+
+        .nav-btn.special-founders {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #f59e0b;
+        }
+        .nav-btn.special-founders i {
+            color: #f59e0b;
+        }
+        .nav-btn.special-founders:hover {
+            background: #f59e0b;
+            color: #030806;
+            border-color: #f59e0b;
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+        }
+        .nav-btn.special-founders:hover i {
+            color: #030806;
+        }
+        /* ======================================================= */
 
         .server-logo {
             width: 120px;
@@ -350,7 +387,7 @@
             border-radius: 16px;
             padding: 20px 25px;
             max-width: 800px;
-            margin: 0 auto 30px auto;
+            margin: 0 auto 25px auto;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             text-align: center;
         }
@@ -359,6 +396,54 @@
             color: #d1d5db;
             font-size: 15px;
             line-height: 1.8;
+        }
+
+        /* Epic Live Stats Bar */
+        .epic-stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+        }
+
+        @media (max-width: 768px) {
+            .epic-stats-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .epic-stat-card {
+            background: rgba(10, 23, 17, 0.9);
+            border: 1px solid #1f3a2c;
+            border-radius: 14px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: border-color 0.3s;
+        }
+
+        .epic-stat-card:hover {
+            border-color: #10b981;
+        }
+
+        .epic-stat-card i {
+            color: #10b981;
+            font-size: 20px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .epic-stat-number {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            display: block;
+        }
+
+        .epic-stat-label {
+            font-size: 12px;
+            color: #9ca3af;
         }
 
         /* Countdown Timer Box */
@@ -769,6 +854,18 @@
             font-size: 15px;
             font-weight: 700;
             color: #fff;
+            margin-bottom: 4px;
+        }
+
+        /* تصميم الرتبة تحت اسم صاحب السيرفر */
+        .founder-role {
+            font-size: 12px;
+            font-weight: 600;
+            color: #f59e0b;
+            background: rgba(245, 158, 11, 0.15);
+            padding: 3px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
         }
 
         /* Modals */
@@ -883,40 +980,44 @@
     <!-- Main Website Content -->
     <div id="main-content">
         <div class="container">
-            <!-- Top Bar -->
-            <div class="top-bar">
-                <button class="lang-toggle-btn" onclick="toggleLanguage()">
+            <!-- ================= REFINED TOP NAVIGATION BAR ================= -->
+            <div class="top-nav-bar">
+                <button class="nav-btn" onclick="toggleLanguage()">
                     <i class="fa-solid fa-globe"></i> <span id="lang-label">English</span>
                 </button>
-                <div class="visitor-counter">
+                <div class="nav-btn" style="cursor: default;">
                     <i class="fa-solid fa-users"></i>
-                    <span><span data-i18n="visitors">عدد الزوار:</span> <strong id="visitor-count">0</strong></span>
+                    <span><span data-i18n="visitors">الزوار:</span> <strong id="visitor-count">0</strong></span>
                 </div>
-                <button class="top-action-btn" onclick="openPage('store-page')">
+                <button class="nav-btn" onclick="openPage('home-page')">
+                    <i class="fa-solid fa-house"></i> <span data-i18n="nav_home">الرئيسية</span>
+                </button>
+                <button class="nav-btn" onclick="openPage('store-page')">
                     <i class="fa-solid fa-store"></i> <span data-i18n="nav_store">المتجر</span>
                 </button>
-                <button class="top-action-btn" onclick="openPage('rank-page')">
+                <button class="nav-btn" onclick="openPage('rank-page')">
                     <i class="fa-solid fa-trophy"></i> <span data-i18n="nav_rank">الرانك</span>
                 </button>
-                <button class="top-action-btn" onclick="openPage('media-page')">
-                    <i class="fa-solid fa-photo-film"></i> <span data-i18n="nav_media">لقطات اللاعبين</span>
+                <button class="nav-btn" onclick="openPage('media-page')">
+                    <i class="fa-solid fa-photo-film"></i> <span data-i18n="nav_media">اللقطات</span>
                 </button>
-                <button class="top-action-btn" onclick="openPage('ban-page')">
-                    <i class="fa-solid fa-ban"></i> <span data-i18n="nav_bans">سجل الباندات</span>
+                <button class="nav-btn" onclick="openPage('ban-page')">
+                    <i class="fa-solid fa-ban"></i> <span data-i18n="nav_bans">الباندات</span>
                 </button>
-                <button class="top-action-btn" onclick="openPage('vouches-page')">
+                <button class="nav-btn" onclick="openPage('vouches-page')">
                     <i class="fa-solid fa-star"></i> <span data-i18n="nav_vouches">التقييمات</span>
                 </button>
-                <button class="top-action-btn" onclick="openPage('apply-page')">
-                    <i class="fa-solid fa-user-shield"></i> <span data-i18n="nav_apply">تقديم الإدارة</span>
+                <button class="nav-btn" onclick="openPage('apply-page')">
+                    <i class="fa-solid fa-user-shield"></i> <span data-i18n="nav_apply">الإدارة</span>
                 </button>
-                <button class="top-action-btn" onclick="openFoundersModal()">
-                    <i class="fa-solid fa-crown"></i> Founders
+                <button class="nav-btn special-founders" onclick="openFoundersModal()">
+                    <i class="fa-solid fa-crown"></i> <span data-i18n="nav_owners">أصحاب السيرفر</span>
                 </button>
-                <a href="https://discord.com/channels/1339585897175191614/1569381603036102746" target="_blank" class="top-action-btn" onclick="openTicketRules(event)">
+                <a href="https://discord.com/channels/1339585897175191614/1569381603036102746" target="_blank" class="nav-btn special-ticket" onclick="openTicketRules(event)">
                     <i class="fa-solid fa-ticket"></i> <span data-i18n="nav_ticket">تكت</span>
                 </a>
             </div>
+            <!-- ============================================================= -->
 
             <!-- Home Section -->
             <div id="home-page" class="sub-page" style="display: block;">
@@ -949,6 +1050,25 @@
                 <!-- Server Description -->
                 <div class="server-desc-box">
                     <p data-i18n="hero_desc">أهلاً بك في <strong>Eagle Arena</strong>، الوجهة الأولى والأقوى لعشاق الفايتات والتحديات في فايف أم! نوفر لك أقوى أنظمة الحماية ضد البرامج الخارجية، فايتات حماسية، إطارات ثابتة، وأقوى الفعاليات والجوائز اليومية. انضم إلينا الآن وأثبت جدارتك في الساحة!</p>
+                </div>
+
+                <!-- Epic Live Stats Bar -->
+                <div class="epic-stats-bar">
+                    <div class="epic-stat-card">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span class="epic-stat-number">100%</span>
+                        <span class="epic-stat-label" data-i18n="stat_anticheat">حماية صارمة ضد الهكر</span>
+                    </div>
+                    <div class="epic-stat-card">
+                        <i class="fa-solid fa-ban"></i>
+                        <span class="epic-stat-number" id="stats-bans-count">3</span>
+                        <span class="epic-stat-label" data-i18n="stat_bans">إجمالي المحظورين</span>
+                    </div>
+                    <div class="epic-stat-card">
+                        <i class="fa-solid fa-film"></i>
+                        <span class="epic-stat-number" id="stats-clips-count">0</span>
+                        <span class="epic-stat-label" data-i18n="stat_clips">لقطات اللاعبين</span>
+                    </div>
                 </div>
 
                 <!-- Countdown Timer -->
@@ -1257,27 +1377,35 @@
         </div>
     </div>
 
-    <!-- Founders Modal -->
+    <!-- Founders Modal (أصحاب السيرفر) -->
     <div id="founders-modal" class="custom-modal">
         <div class="modal-box">
-            <h3>EG | Founders</h3>
+            <h3 data-i18n="owners_modal_title">أصحاب سيرفر Eagle Arena</h3>
             <div class="founders-grid">
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1287016362790617108/f2a567a1b42c144e1328cc18a1a783b0.webp?size=4096" alt="abo qaht" class="founder-avatar">
                     <div class="founder-name">abo qaht</div>
+                    <div class="founder-role" data-i18n="role_owner">Founder </div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1155836050577567784/97150ba00e114ac8dabea67f2d7635be.webp?size=4096" alt="SALE7" class="founder-avatar">
-                    <div class="founder-name">SALE7</div>
+                    <div class="مسؤول التطوير">SALE7</div>
+                    <div class="مسؤول التطوي" data-i18n="مسؤول التطوي">مسؤول التطوي</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1238408880543895566/8dbe8cb203e2551ff44a66852229632d.webp?size=4096" alt="k911" class="founder-avatar">
                     <div class="founder-name">k911</div>
+                    <div class="founder" data-i18n="founder"> founder</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1456353400483614803/7116543bffc2f890f582c2e81058308a.webp?size=4096" alt="𝓜𝔂 1" class="founder-avatar">
                     <div class="founder-name">𝓜𝔂 1</div>
+                    <div class="founder-role" data-i18n="founder">founder</div>
                 </div>
+             <div class="فريق التطوير">
+                    <img src="https://cdn.discordapp.com/avatars/1402583587525627946/a_4a238a0885bb9023cced5900c2822e90.gif" alt="𝓜𝔂 1" class="فريق التطوير-avatar">
+                    <div class="فريق التطوير">ابوعنزي</div>
+                    <div class="فريق التطوير" data-i18n="فريق التطوير">فريق التطوير</div>
             </div>
             <button class="close-modal-btn" onclick="closeFoundersModal()" data-i18n="close_btn">إغلاق</button>
         </div>
@@ -1329,13 +1457,15 @@
             ar: {
                 verify_desc: "يجب عليك إدخال يوزر الدسكورد الخاص بك للتفاعل والدخول إلى الموقع",
                 verify_btn: "زر التفاعل (إرسال)",
-                visitors: "عدد الزوار:",
+                visitors: "الزوار:",
+                nav_home: "الرئيسية",
                 nav_store: "المتجر",
                 nav_rank: "الرانك",
-                nav_media: "لقطات اللاعبين",
-                nav_bans: "سجل الباندات",
+                nav_media: "اللقطات",
+                nav_bans: "الباندات",
                 nav_vouches: "التقييمات",
-                nav_apply: "تقديم الإدارة",
+                nav_apply: "الإدارة",
+                nav_owners: "أصحاب السيرفر",
                 nav_ticket: "تكت",
                 hero_subtitle: "سيرفر فايتات فايف أم الأقوى والأضخم",
                 server_online: "حالة السيرفر: تحت الصيانة (Maintenance)",
@@ -1343,6 +1473,9 @@
                 copy_ip: "نسخ كود الاتصال (F8)",
                 copied_ip: "تم النسخ! الصقه في F8",
                 hero_desc: "أهلاً بك في <strong>Eagle Arena</strong>، الوجهة الأولى والأقوى لعشاق الفايتات والتحديات في فايف أم! نوفر لك أقوى أنظمة الحماية ضد البرامج الخارجية، فايتات حماسية، إطارات ثابتة، وأقوى الفعاليات والجوائز اليومية. انضم إلينا الآن وأثبت جدارتك في الساحة!",
+                stat_anticheat: "حماية صارمة ضد الهكر",
+                stat_bans: "إجمالي المحظورين",
+                stat_clips: "لقطات اللاعبين",
                 days: "أيام",
                 hours: "ساعة",
                 minutes: "دقيقة",
@@ -1409,6 +1542,11 @@
                 app_q4: "4. سبب تقديمك للإدارة:",
                 app_q5: "5. ساعات تواجدك اليومي:",
                 app_submit: "إرسال التقديم للإدارة",
+                owners_modal_title: "أصحاب سيرفر Eagle Arena",
+                role_owner: "Founder & Owner",
+                role_co_owner: "Co-Owner",
+                role_developer: "Server Developer",
+                role_manager: "General Manager",
                 footer_text: "جميع الحقوق محفوظة © 2026 - Eagle Arena",
                 rules_modal_title: "قوانين سيرفر Eagle Arena",
                 ticket_modal_title: "قوانين وأقسام التكتات في Eagle Arena",
@@ -1419,19 +1557,24 @@
                 verify_desc: "Please enter your Discord username to verify and enter the website",
                 verify_btn: "Verify & Enter",
                 visitors: "Visitors:",
+                nav_home: "Home",
                 nav_store: "Store",
-                nav_rank: "Top Rank",
-                nav_media: "Player Clips",
-                nav_bans: "Ban List",
+                nav_rank: "Rank",
+                nav_media: "Clips",
+                nav_bans: "Bans",
                 nav_vouches: "Vouches",
-                nav_apply: "Staff Apply",
-                nav_ticket: "Tickets",
+                nav_apply: "Staff",
+                nav_owners: "Server Owners",
+                nav_ticket: "Ticket",
                 hero_subtitle: "The Ultimate FiveM PvP & Arena Server",
                 server_online: "Server Status: Under Maintenance",
                 players_label: "Status:",
                 copy_ip: "Copy Connect IP (F8)",
                 copied_ip: "Copied! Paste in F8",
                 hero_desc: "Welcome to <strong>Eagle Arena</strong>, the #1 FiveM PvP destination! We offer top-tier anti-cheat protection, intense fights, high stable FPS, and daily events & prizes. Join now and prove your dominance in the arena!",
+                stat_anticheat: "Strict Anti-Cheat",
+                stat_bans: "Total Banned Users",
+                stat_clips: "Player Clips",
                 days: "Days",
                 hours: "Hours",
                 minutes: "Minutes",
@@ -1498,6 +1641,11 @@
                 app_q4: "4. Why do you want to join the staff team?",
                 app_q5: "5. Daily Active Hours:",
                 app_submit: "Submit Application",
+                owners_modal_title: "Eagle Arena Server Owners",
+                role_owner: "Founder & Owner",
+                role_co_owner: "Co-Owner",
+                role_developer: "Server Developer",
+                role_manager: "General Manager",
                 footer_text: "All Rights Reserved © 2026 - Eagle Arena",
                 rules_modal_title: "Eagle Arena Server Rules",
                 ticket_modal_title: "Ticket Departments & Rules",
@@ -1536,9 +1684,9 @@
 
         // ================= 4. BAN LIST DATA & RENDER =================
         const banListData = [
-            { user: "قريبن", id: "ID: 1", reason: "قريبن" },
-            { user: "قريبن", id: "ID: 1", reason: "قريبن" },
-            { user: "قريبن", id: "ID: 1", reason: "قريبن" }
+            { user: "cheater_99", id: "ID: 412", reason: "استخدام برامج خارجية (هكس)" },
+            { user: "toxic_player", id: "ID: 885", reason: "شتم وسب الإدارة واللاعبين" },
+            { user: "exploit_king", id: "ID: 104", reason: "استغلال ثغرات البقوت والفايت" }
         ];
 
         function renderBanList(filter = "") {
@@ -1549,6 +1697,8 @@
                 b.user.toLowerCase().includes(filter.toLowerCase()) || 
                 b.id.toLowerCase().includes(filter.toLowerCase())
             );
+
+            document.getElementById('stats-bans-count').innerText = banListData.length;
 
             if (filteredBans.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="4" style="text-align:center; padding:25px; color:#9ca3af;">لا توجد نتائج مطابقة للبحث..</td></tr>`;
@@ -1582,6 +1732,9 @@
         function renderClips() {
             const container = document.getElementById('clips-container');
             const savedClips = JSON.parse(localStorage.getItem('eagle_user_clips')) || [];
+            
+            document.getElementById('stats-clips-count').innerText = savedClips.length;
+
             container.innerHTML = '';
 
             if (savedClips.length === 0) {
