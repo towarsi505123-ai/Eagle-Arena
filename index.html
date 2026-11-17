@@ -68,6 +68,45 @@
             box-shadow: 0 0 10px #10b981;
         }
 
+        /* Welcome Toast Notification */
+        #welcome-toast {
+            position: fixed;
+            top: -120px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(10, 23, 17, 0.96);
+            backdrop-filter: blur(12px);
+            border: 2px solid #10b981;
+            color: #fff;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 800;
+            z-index: 100001;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 35px rgba(16, 185, 129, 0.55);
+            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            max-width: 92%;
+            text-align: center;
+        }
+
+        #welcome-toast.show {
+            top: 25px;
+        }
+
+        #welcome-toast i {
+            color: #10b981;
+            font-size: 22px;
+            animation: pulse-icon 1.2s infinite;
+        }
+
+        @keyframes pulse-icon {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
         /* Modal Verification Styles */
         #verify-modal {
             position: fixed;
@@ -857,7 +896,6 @@
             margin-bottom: 4px;
         }
 
-        /* تصميم الرتبة تحت اسم صاحب السيرفر */
         .founder-role {
             font-size: 12px;
             font-weight: 600;
@@ -958,6 +996,12 @@
     </style>
 </head>
 <body>
+
+    <!-- Welcome Toast Message -->
+    <div id="welcome-toast">
+        <i class="fa-solid fa-volume-high"></i>
+        <span data-i18n="welcome_msg">مرحباً بك في موقع ايقل ارينا، أتمنى أن تستمتع</span>
+    </div>
 
     <!-- Custom Mouse Follower Elements -->
     <div class="mouse-cursor" id="cursor"></div>
@@ -1385,27 +1429,23 @@
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1287016362790617108/f2a567a1b42c144e1328cc18a1a783b0.webp?size=4096" alt="abo qaht" class="founder-avatar">
                     <div class="founder-name">abo qaht</div>
-                    <div class="founder-role" data-i18n="role_owner">Founder </div>
+                    <div class="founder-role" data-i18n="role_owner">Founder & Owner</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1155836050577567784/97150ba00e114ac8dabea67f2d7635be.webp?size=4096" alt="SALE7" class="founder-avatar">
-                    <div class="مسؤول التطوير">SALE7</div>
-                    <div class="مسؤول التطوي" data-i18n="مسؤول التطوي">مسؤول التطوي</div>
+                    <div class="founder-name">SALE7</div>
+                    <div class="founder-role" data-i18n="role_co_owner">Co-Owner</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1238408880543895566/8dbe8cb203e2551ff44a66852229632d.webp?size=4096" alt="k911" class="founder-avatar">
                     <div class="founder-name">k911</div>
-                    <div class="founder" data-i18n="founder"> founder</div>
+                    <div class="founder-role" data-i18n="role_developer">Server Developer</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1456353400483614803/7116543bffc2f890f582c2e81058308a.webp?size=4096" alt="𝓜𝔂 1" class="founder-avatar">
                     <div class="founder-name">𝓜𝔂 1</div>
-                    <div class="founder-role" data-i18n="founder">founder</div>
+                    <div class="founder-role" data-i18n="role_manager">General Manager</div>
                 </div>
-             <div class="فريق التطوير">
-                    <img src="https://cdn.discordapp.com/avatars/1402583587525627946/a_4a238a0885bb9023cced5900c2822e90.gif" alt="𝓜𝔂 1" class="فريق التطوير-avatar">
-                    <div class="فريق التطوير">ابوعنزي</div>
-                    <div class="فريق التطوير" data-i18n="فريق التطوير">فريق التطوير</div>
             </div>
             <button class="close-modal-btn" onclick="closeFoundersModal()" data-i18n="close_btn">إغلاق</button>
         </div>
@@ -1451,10 +1491,35 @@
         }
         animateCursor();
 
-        // ================= 2. LANGUAGE TOGGLE SYSTEM (AR / EN) =================
+        // ================= 2. VOICE & TEXT WELCOME SYSTEM =================
+        function playWelcomeVoiceAndBanner() {
+            const toast = document.getElementById('welcome-toast');
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 6000);
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const textToSpeak = currentLang === 'ar' 
+                    ? "مرحباً بك في موقع ايقل ارينا، أتمنى أن تستمتع" 
+                    : "Welcome to Eagle Arena website, I hope you enjoy";
+                
+                const utterance = new SpeechSynthesisUtterance(textToSpeak);
+                utterance.lang = currentLang === 'ar' ? 'ar-SA' : 'en-US';
+                utterance.rate = 0.95;
+                utterance.pitch = 1.05;
+                utterance.volume = 1;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // ================= 3. LANGUAGE TOGGLE SYSTEM (AR / EN) =================
         let currentLang = 'ar';
         const translations = {
             ar: {
+                welcome_msg: "مرحباً بك في موقع ايقل ارينا، أتمنى أن تستمتع",
                 verify_desc: "يجب عليك إدخال يوزر الدسكورد الخاص بك للتفاعل والدخول إلى الموقع",
                 verify_btn: "زر التفاعل (إرسال)",
                 visitors: "الزوار:",
@@ -1554,6 +1619,7 @@
                 close_btn: "إغلاق"
             },
             en: {
+                welcome_msg: "Welcome to Eagle Arena website, I hope you enjoy",
                 verify_desc: "Please enter your Discord username to verify and enter the website",
                 verify_btn: "Verify & Enter",
                 visitors: "Visitors:",
@@ -1670,7 +1736,7 @@
             renderBanList();
         }
 
-        // ================= 3. LIVE SERVER STATUS & COPY IP =================
+        // ================= 4. LIVE SERVER STATUS & COPY IP =================
         function copyServerIP() {
             const connectCmd = "connect play.eaglearena.gg";
             navigator.clipboard.writeText(connectCmd).then(() => {
@@ -1682,7 +1748,7 @@
             });
         }
 
-        // ================= 4. BAN LIST DATA & RENDER =================
+        // ================= 5. BAN LIST DATA & RENDER =================
         const banListData = [
             { user: "cheater_99", id: "ID: 412", reason: "استخدام برامج خارجية (هكس)" },
             { user: "toxic_player", id: "ID: 885", reason: "شتم وسب الإدارة واللاعبين" },
@@ -1722,7 +1788,7 @@
             renderBanList(query);
         }
 
-        // ================= 5. PLAYER MEDIA & CLIPS GALLERY =================
+        // ================= 6. PLAYER MEDIA & CLIPS GALLERY =================
         function extractYouTubeID(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
@@ -1784,7 +1850,7 @@
             alert(currentLang === 'ar' ? 'تم نشر لقطتك بنجاح في المعرض!' : 'Your clip has been published to the gallery!');
         }
 
-        // ================= 6. TESTIMONIALS / VOUCHES SYSTEM =================
+        // ================= 7. TESTIMONIALS / VOUCHES SYSTEM =================
         const defaultVouches = [
             {
                 user: "SALE7",
@@ -1840,7 +1906,7 @@
             alert(currentLang === 'ar' ? 'شكراً لك! تم إضافة تقييمك بنجاح.' : 'Thank you! Your vouch has been added.');
         }
 
-        // ================= 7. NAVIGATION, VERIFICATION & FORMS =================
+        // ================= 8. NAVIGATION, VERIFICATION & FORMS =================
         function verifyAndEnter() {
             const username = document.getElementById('discord-username').value.trim();
             if (!username) {
@@ -1852,6 +1918,9 @@
             document.getElementById('clip-author').value = username;
             document.getElementById('vouch-user').value = username;
             document.getElementById('apply-discord').value = username;
+
+            // تشغيل الترحيب الصوتي والكتابي فور الضغط على الدخول
+            playWelcomeVoiceAndBanner();
 
             const modal = document.getElementById('verify-modal');
             modal.style.opacity = '0';
