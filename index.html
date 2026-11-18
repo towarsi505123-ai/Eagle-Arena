@@ -68,45 +68,6 @@
             box-shadow: 0 0 10px #10b981;
         }
 
-        /* Welcome Toast Notification */
-        #welcome-toast {
-            position: fixed;
-            top: -120px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(10, 23, 17, 0.96);
-            backdrop-filter: blur(12px);
-            border: 2px solid #10b981;
-            color: #fff;
-            padding: 15px 30px;
-            border-radius: 50px;
-            font-size: 16px;
-            font-weight: 800;
-            z-index: 100001;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            box-shadow: 0 10px 35px rgba(16, 185, 129, 0.55);
-            transition: top 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            max-width: 92%;
-            text-align: center;
-        }
-
-        #welcome-toast.show {
-            top: 25px;
-        }
-
-        #welcome-toast i {
-            color: #10b981;
-            font-size: 22px;
-            animation: pulse-icon 1.2s infinite;
-        }
-
-        @keyframes pulse-icon {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
-
         /* Modal Verification Styles */
         #verify-modal {
             position: fixed;
@@ -213,49 +174,74 @@
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1150px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
             position: relative;
             z-index: 2;
         }
 
-        /* ================= REFINED TOP NAVIGATION BAR ================= */
-        .top-nav-bar {
-            background: rgba(10, 23, 17, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid #1f3a2c;
-            border-radius: 20px;
-            padding: 12px 20px;
+        /* ================= ORGANIZED TOP NAVIGATION BAR ================= */
+        .top-nav-wrapper {
+            background: rgba(8, 20, 14, 0.88);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            border-radius: 22px;
+            padding: 12px 18px;
             margin-bottom: 35px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-divider {
+            width: 1px;
+            height: 24px;
+            background: rgba(16, 185, 129, 0.25);
+            margin: 0 4px;
+        }
+
+        @media (max-width: 960px) {
+            .top-nav-wrapper {
+                justify-content: center;
+            }
+            .nav-divider {
+                display: none;
+            }
         }
 
         .nav-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(16, 185, 129, 0.08);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 9px 16px;
+            gap: 7px;
+            background: rgba(16, 185, 129, 0.07);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 8px 14px;
             border-radius: 12px;
-            color: #d1d5db;
-            font-size: 14px;
+            color: #e5e7eb;
+            font-size: 13.5px;
             font-weight: 700;
             cursor: pointer;
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .nav-btn i {
             color: #10b981;
-            font-size: 15px;
+            font-size: 14px;
+            transition: transform 0.25s ease;
         }
 
         .nav-btn:hover {
@@ -263,11 +249,29 @@
             color: #030806;
             border-color: #10b981;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
         }
 
         .nav-btn:hover i {
             color: #030806;
+            transform: scale(1.1);
+        }
+
+        .nav-btn.info-pill {
+            background: rgba(5, 11, 8, 0.7);
+            border-color: rgba(31, 58, 44, 0.9);
+            cursor: default;
+        }
+        .nav-btn.info-pill:hover {
+            background: rgba(5, 11, 8, 0.7);
+            color: #e5e7eb;
+            border-color: rgba(31, 58, 44, 0.9);
+            transform: none;
+            box-shadow: none;
+        }
+        .nav-btn.info-pill:hover i {
+            color: #10b981;
+            transform: none;
         }
 
         .nav-btn.special-ticket {
@@ -282,30 +286,30 @@
             background: #3b82f6;
             color: #fff;
             border-color: #3b82f6;
-            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
         }
         .nav-btn.special-ticket:hover i {
             color: #fff;
         }
 
         .nav-btn.special-founders {
-            background: rgba(245, 158, 11, 0.12);
-            border-color: rgba(245, 158, 11, 0.4);
-            color: #f59e0b;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.12));
+            border-color: rgba(245, 158, 11, 0.5);
+            color: #fbbf24;
         }
         .nav-btn.special-founders i {
-            color: #f59e0b;
+            color: #fbbf24;
         }
         .nav-btn.special-founders:hover {
             background: #f59e0b;
             color: #030806;
             border-color: #f59e0b;
-            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.45);
         }
         .nav-btn.special-founders:hover i {
             color: #030806;
         }
-        /* ======================================================= */
+        /* ================================================================ */
 
         .server-logo {
             width: 120px;
@@ -863,8 +867,14 @@
         .founders-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 18px;
             margin-top: 15px;
+        }
+
+        @media (max-width: 500px) {
+            .founders-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         .founder-card {
@@ -878,6 +888,24 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.25);
+        }
+
+        .founder-card.featured-owner {
+            grid-column: span 2;
+            border-color: #f59e0b;
+            background: linear-gradient(180deg, rgba(245, 158, 11, 0.08) 0%, #050b08 100%);
+        }
+
+        @media (max-width: 500px) {
+            .founder-card.featured-owner {
+                grid-column: span 1;
+            }
         }
 
         .founder-avatar {
@@ -889,21 +917,50 @@
             object-fit: cover;
         }
 
+        .featured-owner .founder-avatar {
+            border-color: #f59e0b;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+        }
+
         .founder-name {
-            font-size: 15px;
-            font-weight: 700;
+            font-size: 16px;
+            font-weight: 800;
             color: #fff;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Animated Crown beside abo qaht */
+        .animated-crown {
+            color: #fbbf24;
+            font-size: 18px;
+            display: inline-block;
+            animation: crown-float 1.8s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(251, 191, 36, 0.85));
+        }
+
+        @keyframes crown-float {
+            0%, 100% {
+                transform: translateY(0) rotate(-6deg) scale(1);
+                filter: drop-shadow(0 0 6px rgba(251, 191, 36, 0.7));
+            }
+            50% {
+                transform: translateY(-5px) rotate(6deg) scale(1.18);
+                filter: drop-shadow(0 0 14px rgba(251, 191, 36, 1));
+            }
         }
 
         .founder-role {
             font-size: 12px;
-            font-weight: 600;
+            font-weight: 700;
             color: #f59e0b;
             background: rgba(245, 158, 11, 0.15);
-            padding: 3px 10px;
+            padding: 3px 12px;
             border-radius: 12px;
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            border: 1px solid rgba(245, 158, 11, 0.35);
         }
 
         /* Modals */
@@ -997,12 +1054,6 @@
 </head>
 <body>
 
-    <!-- Welcome Toast Message -->
-    <div id="welcome-toast">
-        <i class="fa-solid fa-volume-high"></i>
-        <span data-i18n="welcome_msg">مرحباً بك في موقع ايقل ارينا، أتمنى أن تستمتع</span>
-    </div>
-
     <!-- Custom Mouse Follower Elements -->
     <div class="mouse-cursor" id="cursor"></div>
     <div class="mouse-dot" id="cursor-dot"></div>
@@ -1024,44 +1075,59 @@
     <!-- Main Website Content -->
     <div id="main-content">
         <div class="container">
-            <!-- ================= REFINED TOP NAVIGATION BAR ================= -->
-            <div class="top-nav-bar">
-                <button class="nav-btn" onclick="toggleLanguage()">
-                    <i class="fa-solid fa-globe"></i> <span id="lang-label">English</span>
-                </button>
-                <div class="nav-btn" style="cursor: default;">
-                    <i class="fa-solid fa-users"></i>
-                    <span><span data-i18n="visitors">الزوار:</span> <strong id="visitor-count">0</strong></span>
+            <!-- ================= ORGANIZED TOP NAVIGATION BAR ================= -->
+            <nav class="top-nav-wrapper">
+                <!-- Left/Start Group: Utility Controls -->
+                <div class="nav-group">
+                    <button class="nav-btn" onclick="toggleLanguage()">
+                        <i class="fa-solid fa-globe"></i> <span id="lang-label">English</span>
+                    </button>
+                    <div class="nav-btn info-pill">
+                        <i class="fa-solid fa-users"></i>
+                        <span><span data-i18n="visitors">الزوار:</span> <strong id="visitor-count">0</strong></span>
+                    </div>
                 </div>
-                <button class="nav-btn" onclick="openPage('home-page')">
-                    <i class="fa-solid fa-house"></i> <span data-i18n="nav_home">الرئيسية</span>
-                </button>
-                <button class="nav-btn" onclick="openPage('store-page')">
-                    <i class="fa-solid fa-store"></i> <span data-i18n="nav_store">المتجر</span>
-                </button>
-                <button class="nav-btn" onclick="openPage('rank-page')">
-                    <i class="fa-solid fa-trophy"></i> <span data-i18n="nav_rank">الرانك</span>
-                </button>
-                <button class="nav-btn" onclick="openPage('media-page')">
-                    <i class="fa-solid fa-photo-film"></i> <span data-i18n="nav_media">اللقطات</span>
-                </button>
-                <button class="nav-btn" onclick="openPage('ban-page')">
-                    <i class="fa-solid fa-ban"></i> <span data-i18n="nav_bans">الباندات</span>
-                </button>
-                <button class="nav-btn" onclick="openPage('vouches-page')">
-                    <i class="fa-solid fa-star"></i> <span data-i18n="nav_vouches">التقييمات</span>
-                </button>
-                <button class="nav-btn" onclick="openPage('apply-page')">
-                    <i class="fa-solid fa-user-shield"></i> <span data-i18n="nav_apply">الإدارة</span>
-                </button>
-                <button class="nav-btn special-founders" onclick="openFoundersModal()">
-                    <i class="fa-solid fa-crown"></i> <span data-i18n="nav_owners">أصحاب السيرفر</span>
-                </button>
-                <a href="https://discord.com/channels/1339585897175191614/1569381603036102746" target="_blank" class="nav-btn special-ticket" onclick="openTicketRules(event)">
-                    <i class="fa-solid fa-ticket"></i> <span data-i18n="nav_ticket">تكت</span>
-                </a>
-            </div>
-            <!-- ============================================================= -->
+
+                <div class="nav-divider"></div>
+
+                <!-- Center Group: Main Pages -->
+                <div class="nav-group">
+                    <button class="nav-btn" onclick="openPage('home-page')">
+                        <i class="fa-solid fa-house"></i> <span data-i18n="nav_home">الرئيسية</span>
+                    </button>
+                    <button class="nav-btn" onclick="openPage('store-page')">
+                        <i class="fa-solid fa-store"></i> <span data-i18n="nav_store">المتجر</span>
+                    </button>
+                    <button class="nav-btn" onclick="openPage('rank-page')">
+                        <i class="fa-solid fa-trophy"></i> <span data-i18n="nav_rank">الرانك</span>
+                    </button>
+                    <button class="nav-btn" onclick="openPage('media-page')">
+                        <i class="fa-solid fa-photo-film"></i> <span data-i18n="nav_media">اللقطات</span>
+                    </button>
+                    <button class="nav-btn" onclick="openPage('ban-page')">
+                        <i class="fa-solid fa-ban"></i> <span data-i18n="nav_bans">الباندات</span>
+                    </button>
+                    <button class="nav-btn" onclick="openPage('vouches-page')">
+                        <i class="fa-solid fa-star"></i> <span data-i18n="nav_vouches">التقييمات</span>
+                    </button>
+                    <button class="nav-btn" onclick="openPage('apply-page')">
+                        <i class="fa-solid fa-user-shield"></i> <span data-i18n="nav_apply">الإدارة</span>
+                    </button>
+                </div>
+
+                <div class="nav-divider"></div>
+
+                <!-- Right/End Group: Highlighted Actions -->
+                <div class="nav-group">
+                    <button class="nav-btn special-founders" onclick="openFoundersModal()">
+                        <i class="fa-solid fa-crown"></i> <span data-i18n="nav_owners">أصحاب السيرفر</span>
+                    </button>
+                    <a href="https://discord.com/channels/1339585897175191614/1569381603036102746" target="_blank" class="nav-btn special-ticket" onclick="openTicketRules(event)">
+                        <i class="fa-solid fa-ticket"></i> <span data-i18n="nav_ticket">تكت</span>
+                    </a>
+                </div>
+            </nav>
+            <!-- ================================================================ -->
 
             <!-- Home Section -->
             <div id="home-page" class="sub-page" style="display: block;">
@@ -1426,25 +1492,33 @@
         <div class="modal-box">
             <h3 data-i18n="owners_modal_title">أصحاب سيرفر Eagle Arena</h3>
             <div class="founders-grid">
-                <div class="founder-card">
+                <div class="founder-card featured-owner">
                     <img src="https://cdn.discordapp.com/avatars/1287016362790617108/f2a567a1b42c144e1328cc18a1a783b0.webp?size=4096" alt="abo qaht" class="founder-avatar">
-                    <div class="founder-name">abo qaht</div>
-                    <div class="founder-role" data-i18n="role_owner">Founder </div>
+                    <div class="founder-name">
+                        <span>abo qaht</span>
+                        <i class="fa-solid fa-crown animated-crown" title="Founder & Owner"></i>
+                    </div>
+                    <div class="founder-role" data-i18n="role_owner">Founder & Owner</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1155836050577567784/97150ba00e114ac8dabea67f2d7635be.webp?size=4096" alt="SALE7" class="founder-avatar">
                     <div class="founder-name">SALE7</div>
-                    <div class="founder-role" data-i18n="role_co_owner">Founder</div>
+                    <div class="founder-role" data-i18n="role_co_owner">Co-Owner</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1238408880543895566/8dbe8cb203e2551ff44a66852229632d.webp?size=4096" alt="k911" class="founder-avatar">
                     <div class="founder-name">k911</div>
-                    <div class="founder-role" data-i18n="role_developer">Founder</div>
+                    <div class="founder-role" data-i18n="role_developer">Server Developer</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1456353400483614803/7116543bffc2f890f582c2e81058308a.webp?size=4096" alt="𝓜𝔂 1" class="founder-avatar">
                     <div class="founder-name">𝓜𝔂 1</div>
-                    <div class="founder-role" data-i18n="role_manager">Founder</div>
+                    <div class="founder-role" data-i18n="role_manager">General Manager</div>
+                </div>
+                <div class="founder-card">
+                    <img src="https://cdn.discordapp.com/attachments/1482366957201129512/1572555505690218496/512.gif?ex=6afecbf1&is=6afd7a71&hm=19041f8b7d9f89bfcbf13f0ee754fdda88077f8cffbc835cf3553d65efb7aa6f&" alt="Al-Anzi" class="founder-avatar">
+                    <div class="founder-name">Al-Anzi</div>
+                    <div class="founder-role" data-i18n="role_founder">Founder</div>
                 </div>
             </div>
             <button class="close-modal-btn" onclick="closeFoundersModal()" data-i18n="close_btn">إغلاق</button>
@@ -1491,35 +1565,10 @@
         }
         animateCursor();
 
-        // ================= 2. VOICE & TEXT WELCOME SYSTEM =================
-        function playWelcomeVoiceAndBanner() {
-            const toast = document.getElementById('welcome-toast');
-            toast.classList.add('show');
-
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 6000);
-
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const textToSpeak = currentLang === 'ar' 
-                    ? "مرحباً بك في موقع ايقل ارينا، أتمنى أن تستمتع" 
-                    : "Welcome to Eagle Arena website, I hope you enjoy";
-                
-                const utterance = new SpeechSynthesisUtterance(textToSpeak);
-                utterance.lang = currentLang === 'ar' ? 'ar-SA' : 'en-US';
-                utterance.rate = 0.95;
-                utterance.pitch = 1.05;
-                utterance.volume = 1;
-                window.speechSynthesis.speak(utterance);
-            }
-        }
-
-        // ================= 3. LANGUAGE TOGGLE SYSTEM (AR / EN) =================
+        // ================= 2. LANGUAGE TOGGLE SYSTEM (AR / EN) =================
         let currentLang = 'ar';
         const translations = {
             ar: {
-                welcome_msg: "مرحباً بك في موقع ايقل ارينا، أتمنى أن تستمتع",
                 verify_desc: "يجب عليك إدخال يوزر الدسكورد الخاص بك للتفاعل والدخول إلى الموقع",
                 verify_btn: "زر التفاعل (إرسال)",
                 visitors: "الزوار:",
@@ -1609,6 +1658,7 @@
                 app_submit: "إرسال التقديم للإدارة",
                 owners_modal_title: "أصحاب سيرفر Eagle Arena",
                 role_owner: "Founder & Owner",
+                role_founder: "Founder",
                 role_co_owner: "Co-Owner",
                 role_developer: "Server Developer",
                 role_manager: "General Manager",
@@ -1619,7 +1669,6 @@
                 close_btn: "إغلاق"
             },
             en: {
-                welcome_msg: "Welcome to Eagle Arena website, I hope you enjoy",
                 verify_desc: "Please enter your Discord username to verify and enter the website",
                 verify_btn: "Verify & Enter",
                 visitors: "Visitors:",
@@ -1709,6 +1758,7 @@
                 app_submit: "Submit Application",
                 owners_modal_title: "Eagle Arena Server Owners",
                 role_owner: "Founder & Owner",
+                role_founder: "Founder",
                 role_co_owner: "Co-Owner",
                 role_developer: "Server Developer",
                 role_manager: "General Manager",
@@ -1736,7 +1786,7 @@
             renderBanList();
         }
 
-        // ================= 4. LIVE SERVER STATUS & COPY IP =================
+        // ================= 3. LIVE SERVER STATUS & COPY IP =================
         function copyServerIP() {
             const connectCmd = "connect play.eaglearena.gg";
             navigator.clipboard.writeText(connectCmd).then(() => {
@@ -1748,7 +1798,7 @@
             });
         }
 
-        // ================= 5. BAN LIST DATA & RENDER =================
+        // ================= 4. BAN LIST DATA & RENDER =================
         const banListData = [
             { user: "cheater_99", id: "ID: 412", reason: "استخدام برامج خارجية (هكس)" },
             { user: "toxic_player", id: "ID: 885", reason: "شتم وسب الإدارة واللاعبين" },
@@ -1788,7 +1838,7 @@
             renderBanList(query);
         }
 
-        // ================= 6. PLAYER MEDIA & CLIPS GALLERY =================
+        // ================= 5. PLAYER MEDIA & CLIPS GALLERY =================
         function extractYouTubeID(url) {
             const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
             const match = url.match(regExp);
@@ -1850,7 +1900,7 @@
             alert(currentLang === 'ar' ? 'تم نشر لقطتك بنجاح في المعرض!' : 'Your clip has been published to the gallery!');
         }
 
-        // ================= 7. TESTIMONIALS / VOUCHES SYSTEM =================
+        // ================= 6. TESTIMONIALS / VOUCHES SYSTEM =================
         const defaultVouches = [
             {
                 user: "SALE7",
@@ -1906,7 +1956,7 @@
             alert(currentLang === 'ar' ? 'شكراً لك! تم إضافة تقييمك بنجاح.' : 'Thank you! Your vouch has been added.');
         }
 
-        // ================= 8. NAVIGATION, VERIFICATION & FORMS =================
+        // ================= 7. NAVIGATION, VERIFICATION & FORMS =================
         function verifyAndEnter() {
             const username = document.getElementById('discord-username').value.trim();
             if (!username) {
@@ -1918,9 +1968,6 @@
             document.getElementById('clip-author').value = username;
             document.getElementById('vouch-user').value = username;
             document.getElementById('apply-discord').value = username;
-
-            // تشغيل الترحيب الصوتي والكتابي فور الضغط على الدخول
-            playWelcomeVoiceAndBanner();
 
             const modal = document.getElementById('verify-modal');
             modal.style.opacity = '0';
