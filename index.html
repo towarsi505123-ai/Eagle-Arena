@@ -1503,23 +1503,23 @@
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1155836050577567784/97150ba00e114ac8dabea67f2d7635be.webp?size=4096" alt="SALE7" class="founder-avatar">
                     <div class="founder-name">SALE7</div>
-                    <div class="founder-role" data-i18n="role_co_owner">Server Developer</div>
+                    <div class="founder-role" data-i18n="role_co_owner">Co-Owner</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1238408880543895566/8dbe8cb203e2551ff44a66852229632d.webp?size=4096" alt="k911" class="founder-avatar">
                     <div class="founder-name">k911</div>
-                    <div class="founder-role" data-i18n="role_developer">Founder</div>
+                    <div class="founder-role" data-i18n="role_developer">Server Developer</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/avatars/1456353400483614803/7116543bffc2f890f582c2e81058308a.webp?size=4096" alt="𝓜𝔂 1" class="founder-avatar">
                     <div class="founder-name">𝓜𝔂 1</div>
-                    <div class="founder-role" data-i18n="role_manager">Founder</div>
+                    <div class="founder-role" data-i18n="role_manager">General Manager</div>
                 </div>
                 <div class="founder-card">
                     <img src="https://cdn.discordapp.com/attachments/1482366957201129512/1572555505690218496/512.gif?ex=6afecbf1&is=6afd7a71&hm=19041f8b7d9f89bfcbf13f0ee754fdda88077f8cffbc835cf3553d65efb7aa6f&" alt="Al-Anzi" class="founder-avatar">
                     <div class="founder-name">Al-Anzi</div>
                     <div class="founder-role" data-i18n="role_founder">Founder</div>
-               </div>
+                </div>
             </div>
             <button class="close-modal-btn" onclick="closeFoundersModal()" data-i18n="close_btn">إغلاق</button>
         </div>
@@ -1542,6 +1542,31 @@
     </div>
 
     <script>
+        // ================= WEBHOOKS CONFIGURATION =================
+        const WEBHOOKS = {
+            apply: "https://canary.discord.com/api/webhooks/1571866384088965232/snhHWDTOixl7nC0qv7lLyyBQqyzyDkT7_NNt5_sCqqZY4we9-OwiGUKVfsqFB17wC7ZL",
+            entry: "https://canary.discord.com/api/webhooks/1571085115038367826/rlA1kWZ7sLWk76gZpDN7_Er1jL8OF8FFlv8kxEFMDplegZ14aZaSy36jlkkV97fvrtqV",
+            store: "https://canary.discord.com/api/webhooks/1571862421637693470/w0lY8PaPBudD5muEb11jNw0eAQYu2AKIv95WskBK0vDdT075vv-peErBinTVvdUXr389",
+            vouches: "https://canary.discord.com/api/webhooks/1572859373951385680/W0nNovCYJE0lEWKm3SzLThWjOk9rzC3SF0igKiyHlLeONoF47n626fto8ggumDUZTW-J"
+        };
+
+        async function sendDiscordWebhook(url, embedData) {
+            if (!url) return;
+            try {
+                await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        username: "Eagle Arena System",
+                        avatar_url: "https://cdn.discordapp.com/icons/1339585897175191614/449360369e070e5c7462296ff12fb3be.webp?size=4096",
+                        embeds: [embedData]
+                    })
+                });
+            } catch (err) {
+                console.error("Webhook error:", err);
+            }
+        }
+
         // ================= 1. MOUSE FOLLOWER EFFECT =================
         const cursor = document.getElementById('cursor');
         const cursorDot = document.getElementById('cursor-dot');
@@ -1951,9 +1976,21 @@
             savedVouches.unshift({ user, category, rating, comment });
             localStorage.setItem('eagle_user_vouches', JSON.stringify(savedVouches));
 
+            sendDiscordWebhook(WEBHOOKS.vouches, {
+                title: "⭐ تقييم جديد في Eagle Arena",
+                color: 0xfbbf24,
+                fields: [
+                    { name: "👤 يوزر الدسكورد", value: user, inline: true },
+                    { name: "📌 نوع التجربة", value: category, inline: true },
+                    { name: "🌟 التقييم", value: '⭐'.repeat(rating) + ` (${rating}/5)`, inline: true },
+                    { name: "💬 الرأي", value: comment, inline: false }
+                ],
+                timestamp: new Date().toISOString()
+            });
+
             document.getElementById('vouch-comment').value = '';
             renderVouches();
-            alert(currentLang === 'ar' ? 'شكراً لك! تم إضافة تقييمك بنجاح.' : 'Thank you! Your vouch has been added.');
+            alert(currentLang === 'ar' ? 'شكراً لك! تم إضافة تقييمك وإرساله بنجاح.' : 'Thank you! Your vouch has been added and sent.');
         }
 
         // ================= 7. NAVIGATION, VERIFICATION & FORMS =================
@@ -1968,6 +2005,16 @@
             document.getElementById('clip-author').value = username;
             document.getElementById('vouch-user').value = username;
             document.getElementById('apply-discord').value = username;
+
+            sendDiscordWebhook(WEBHOOKS.entry, {
+                title: "🚪 دخول جديد إلى موقع Eagle Arena",
+                color: 0x10b981,
+                fields: [
+                    { name: "👤 يوزر الدسكورد", value: username, inline: true },
+                    { name: "🌐 اللغة", value: currentLang === 'ar' ? "العربية" : "English", inline: true }
+                ],
+                timestamp: new Date().toISOString()
+            });
 
             const modal = document.getElementById('verify-modal');
             modal.style.opacity = '0';
@@ -2014,15 +2061,27 @@
         function submitStoreOrder() {
             const user = document.getElementById('store-discord').value.trim();
             const product = document.getElementById('store-product').value;
-            const notes = document.getElementById('store-notes').value.trim();
+            const notes = document.getElementById('store-notes').value.trim() || "لا يوجد";
 
             if (!user) {
                 alert(currentLang === 'ar' ? 'يرجى إدخال يوزر الدسكورد!' : 'Please enter your Discord username!');
                 return;
             }
+
+            sendDiscordWebhook(WEBHOOKS.store, {
+                title: "🛒 طلب جديد من متجر Eagle Store",
+                color: 0x34d399,
+                fields: [
+                    { name: "👤 يوزر الدسكورد", value: user, inline: true },
+                    { name: "📦 المنتج المطلوب", value: product, inline: true },
+                    { name: "📝 تفاصيل إضافية", value: notes, inline: false }
+                ],
+                timestamp: new Date().toISOString()
+            });
+
             alert(currentLang === 'ar' 
-                ? `تم استلام طلبك بنجاح يا ${user}!\nالمنتج: ${product}\nيرجى فتح تكت في الدسكورد لإتمام الدفع والاستلام.`
-                : `Order received, ${user}!\nProduct: ${product}\nPlease open a ticket in Discord to complete payment.`);
+                ? `تم استلام طلبك وإرساله بنجاح يا ${user}!\nالمنتج: ${product}\nيرجى فتح تكت في الدسكورد لإتمام الدفع والاستلام.`
+                : `Order received & sent, ${user}!\nProduct: ${product}\nPlease open a ticket in Discord to complete payment.`);
         }
 
         function submitAdminApplication() {
@@ -2036,6 +2095,20 @@
                 alert(currentLang === 'ar' ? 'يرجى تعبئة جميع حقول التقديم!' : 'Please fill in all application fields!');
                 return;
             }
+
+            sendDiscordWebhook(WEBHOOKS.apply, {
+                title: "🛡️ تقديم إدارة جديد في Eagle Arena",
+                color: 0x3b82f6,
+                fields: [
+                    { name: "👤 الدسكورد", value: discord, inline: true },
+                    { name: "📛 الاسم الحقيقي", value: name, inline: true },
+                    { name: "🌍 العمر والبلد", value: ageCountry, inline: true },
+                    { name: "⏰ ساعات التواجد", value: hours, inline: true },
+                    { name: "💡 سبب التقديم", value: reason, inline: false }
+                ],
+                timestamp: new Date().toISOString()
+            });
+
             alert(currentLang === 'ar'
                 ? 'تم إرسال تقديمك للإدارة بنجاح! سيتم التواصل معك في الدسكورد.'
                 : 'Your staff application has been submitted! We will contact you on Discord.');
